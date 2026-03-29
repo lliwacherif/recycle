@@ -1,7 +1,7 @@
 var app = {
     
     initialize: function() {
-        if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+        if (window.cordova) {
             document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
         } else {
             this.onDeviceReady();

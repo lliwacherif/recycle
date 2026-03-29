@@ -37,8 +37,13 @@ function init_app(){
         
         applyScale();
         
-        $(window).on('resize orientationchange', function(){
+        $(window).on('resize', function(){
             applyScale();
+        });
+        $(window).on('orientationchange', function(){
+            applyScale();
+            setTimeout(applyScale, 200);
+            setTimeout(applyScale, 500);
         });
         
         init_idle_timeout();
