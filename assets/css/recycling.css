@@ -1613,3 +1613,29 @@ body{
         display: flex !important;
     }
 }
+.info-screen{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1920px;
+    height: 1080px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.92);
+}
+.info-screen-img{
+    max-height: 980px;
+    max-width: 1500px;
+    object-fit: contain;
+    border-radius: 24px;
+    box-shadow: 0 12px 50px rgba(0, 0, 0, 0.25);
+}
+.info-screen-fadein{
+    opacity: 0;
+    animation: 500ms ease-out 100ms info-screen-fadein forwards;
+}
+@keyframes info-screen-fadein{
+    0%   { opacity: 0; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+}

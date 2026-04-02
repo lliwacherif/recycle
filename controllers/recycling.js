@@ -184,11 +184,70 @@ function init_home_page(){
         $(".vibrant-city").css("top","806.6px").css("animation", "600ms cubic-bezier(0.310, 0.645, 0.585, 1.105) 100ms vibrant-city-animation-out forwards");
         
         setTimeout(function(){
-            display_intro();
+            display_pic1();
         }, 700);
     });
     
     /* KIV: top text use svg, illustrator export to svg, animate drawing */ 
+}
+
+function display_pic1(){
+    clearNavigatePage();
+    clearToastTimer();
+    $(".white-background").fadeIn(400);
+    
+    var r = new Array(), j = -1;
+    
+    r[++j] = "<div class='info-screen info-screen-fadein'>";
+    r[++j] =    "<img class='info-screen-img' src='./assets/images/pic1.png'/>";
+    r[++j] = "</div>";
+    r[++j] = "<div class='next-button'><img class='tile-thumbnail' src='./assets/images/Next-Button.png'/></div>";
+    r[++j] = "<div class='home-button'><img class='tile-thumbnail' src='./assets/images/Home-Button.png'/></div>";
+    
+    var obj = $(r.join(""));
+    $("#navigate-container").append(obj);
+    
+    $(".next-button").click(function(event){
+        $(this).off("click");
+        display_pic2();
+    });
+    
+    $(".home-button").click(function(event){
+        $(this).off("click");
+        init_home_page();
+    });
+}
+
+function display_pic2(){
+    clearNavigatePage();
+    clearToastTimer();
+    
+    var r = new Array(), j = -1;
+    
+    r[++j] = "<div class='info-screen info-screen-fadein'>";
+    r[++j] =    "<img class='info-screen-img' src='./assets/images/pic2.png'/>";
+    r[++j] = "</div>";
+    r[++j] = "<div class='next-button'><img class='tile-thumbnail' src='./assets/images/Next-Button.png'/></div>";
+    r[++j] = "<div class='previous-button'><img class='tile-thumbnail' src='./assets/images/Previous-Button.png'/></div>";
+    r[++j] = "<div class='home-button'><img class='tile-thumbnail' src='./assets/images/Home-Button.png'/></div>";
+    
+    var obj = $(r.join(""));
+    $("#navigate-container").append(obj);
+    
+    $(".next-button").click(function(event){
+        $(this).off("click");
+        display_intro();
+    });
+    
+    $(".previous-button").click(function(event){
+        $(this).off("click");
+        display_pic1();
+    });
+    
+    $(".home-button").click(function(event){
+        $(this).off("click");
+        init_home_page();
+    });
 }
 
 function display_intro(){
