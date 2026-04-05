@@ -47,12 +47,148 @@ function init_app(){
         });
         
         init_idle_timeout();
-        init_home_page();
+        show_main_menu();
         
         $("#audio-player").on("play", function(){
             $("#audio-player").hide();
         });
     });
+}
+
+function show_main_menu(){
+    clearPage();
+    clearToastTimer();
+    clearInterval(current_level_timer);
+    resetScore();
+    changeBackground("./assets/images/Background-White.png");
+    current_function = "show_main_menu";
+    current_user_name = "";
+    current_gender = "female";
+    current_level = 0;
+    
+    playMusic("Mr_Turtle.mp3");
+    window.scrollTo(0,0);
+    
+    var r = new Array(), j = -1;
+    
+    r[++j] = "<div id='navigate-container'>";
+    
+    r[++j] = "<div class='menu-title'>مرحباً بك في عالم البيئة!</div>";
+    r[++j] = "<div class='menu-subtitle'>اختر ما تريد استكشافه</div>";
+    
+    r[++j] = "<div class='menu-grid'>";
+    
+    r[++j] = "<div class='menu-btn menu-btn-1 menu-btn-anim' style='animation-delay:200ms' data-action='remember'>";
+    r[++j] =    "<div class='menu-btn-icon'>🌟</div>";
+    r[++j] =    "<div class='menu-btn-text'>تذكر</div>";
+    r[++j] = "</div>";
+    
+    r[++j] = "<div class='menu-btn menu-btn-2 menu-btn-anim' style='animation-delay:400ms' data-action='discover'>";
+    r[++j] =    "<div class='menu-btn-icon'>🌍</div>";
+    r[++j] =    "<div class='menu-btn-text'>اكتشف محيطي</div>";
+    r[++j] = "</div>";
+    
+    r[++j] = "<div class='menu-btn menu-btn-3 menu-btn-anim' style='animation-delay:600ms' data-action='video'>";
+    r[++j] =    "<div class='menu-btn-icon'>📺</div>";
+    r[++j] =    "<div class='menu-btn-text'>جزء المطالعة</div>";
+    r[++j] = "</div>";
+    
+    r[++j] = "<div class='menu-btn menu-btn-4 menu-btn-anim' style='animation-delay:800ms' data-action='game'>";
+    r[++j] =    "<div class='menu-btn-icon'>🎮</div>";
+    r[++j] =    "<div class='menu-btn-text'>مهمتي في البيئة</div>";
+    r[++j] = "</div>";
+    
+    r[++j] = "</div>";
+    
+    r[++j] = "<div class='menu-deco-left'><img class='tile-thumbnail' src='./assets/images/Tree-Top.png'/></div>";
+    r[++j] = "<div class='menu-deco-right'><img class='tile-thumbnail' src='./assets/images/Garden-Top.png'/></div>";
+    
+    r[++j] = "</div>";
+    
+    var obj = $(r.join(""));
+    $("#page-container").append(obj);
+    
+    $("[data-action='remember']").click(function(){ show_remember_page(); });
+    $("[data-action='discover']").click(function(){ show_discover_page(); });
+    $("[data-action='video']").click(function(){ show_video_page(); });
+    $("[data-action='game']").click(function(){ init_home_page(); });
+}
+
+function show_remember_page(){
+    clearPage();
+    clearToastTimer();
+    changeBackground("./assets/images/Background-White.png");
+    
+    var r = new Array(), j = -1;
+    
+    r[++j] = "<div id='navigate-container'>";
+    r[++j] = "<div class='sub-page-content info-screen-fadein'>";
+    r[++j] =    "<img class='sub-page-img' src='./assets/images/interface1.png'/>";
+    r[++j] = "</div>";
+    r[++j] = "<div class='menu-back-btn' data-action='back'><img class='tile-thumbnail' src='./assets/images/Previous-Button.png'/></div>";
+    r[++j] = "</div>";
+    
+    var obj = $(r.join(""));
+    $("#page-container").append(obj);
+    
+    $("[data-action='back']").click(function(){ show_main_menu(); });
+}
+
+function show_discover_page(){
+    clearPage();
+    clearToastTimer();
+    changeBackground("./assets/images/Background-White.png");
+    
+    var r = new Array(), j = -1;
+    
+    r[++j] = "<div id='navigate-container'>";
+    r[++j] = "<div class='discover-page info-screen-fadein'>";
+    r[++j] =    "<div class='discover-card'>";
+    r[++j] =        "<div class='discover-title'>🌱 اكتشف محيطي</div>";
+    r[++j] =        "<div class='discover-text'>";
+    r[++j] =            "مرحباً يا بطل البيئة! 🌟<br/><br/>";
+    r[++j] =            "هل تعلم أن كوكبنا الجميل يحتاج إلى مساعدتك؟ في كل يوم، نرمي الكثير من الأشياء مثل العلب والزجاجات والأوراق والأكياس. لكن الكثير من هذه الأشياء يمكن إعادة تدويرها وتحويلها إلى أشياء جديدة ومفيدة!<br/><br/>";
+    r[++j] =            "🎮 <strong>كيف تلعب؟</strong><br/>";
+    r[++j] =            "ستكون أنت مدير إعادة التدوير! مهمتك هي فرز النفايات ووضع كل قطعة في الحاوية الصحيحة.<br/>";
+    r[++j] =            "هل هي ورق؟ بلاستيك؟ زجاج؟ معدن؟ أم نفايات عضوية؟<br/><br/>";
+    r[++j] =            "👆 <strong>اسحب</strong> كل قطعة <strong>وأسقطها</strong> في الحاوية المناسبة قبل انتهاء الوقت!<br/><br/>";
+    r[++j] =            "✅ كل إجابة صحيحة = <strong>+5 نقاط</strong><br/>";
+    r[++j] =            "❌ كل إجابة خاطئة = <strong>-1 نقطة</strong><br/><br/>";
+    r[++j] =            "🏆 أكمل 3 جولات وحاول أن تحصل على أعلى نتيجة!<br/><br/>";
+    r[++j] =            "هل أنت مستعد لإنقاذ الكوكب؟ هيا بنا! 🌍♻️";
+    r[++j] =        "</div>";
+    r[++j] =    "</div>";
+    r[++j] = "</div>";
+    r[++j] = "<div class='menu-back-btn' data-action='back'><img class='tile-thumbnail' src='./assets/images/Previous-Button.png'/></div>";
+    r[++j] = "</div>";
+    
+    var obj = $(r.join(""));
+    $("#page-container").append(obj);
+    
+    $("[data-action='back']").click(function(){ show_main_menu(); });
+}
+
+function show_video_page(){
+    clearPage();
+    clearToastTimer();
+    changeBackground("./assets/images/Background-White.png");
+    
+    var r = new Array(), j = -1;
+    
+    r[++j] = "<div id='navigate-container'>";
+    r[++j] = "<div class='video-page info-screen-fadein'>";
+    r[++j] =    "<div class='video-title'>📺 جزء المطالعة</div>";
+    r[++j] =    "<div class='video-container'>";
+    r[++j] =        "<iframe class='video-iframe' src='https://www.youtube.com/embed/ZZtn08FK_nU' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
+    r[++j] =    "</div>";
+    r[++j] = "</div>";
+    r[++j] = "<div class='menu-back-btn' data-action='back'><img class='tile-thumbnail' src='./assets/images/Previous-Button.png'/></div>";
+    r[++j] = "</div>";
+    
+    var obj = $(r.join(""));
+    $("#page-container").append(obj);
+    
+    $("[data-action='back']").click(function(){ show_main_menu(); });
 }
 
 function init_home_page(){
