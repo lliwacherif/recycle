@@ -205,7 +205,7 @@ function show_remember_page(){
     
     function goToSlide(idx) {
         currentSlide = idx;
-        $(".remember-track").css("transform", "translateX(" + (currentSlide * 100) + "%)");
+        $(".remember-track").css("transform", "translateX(-" + (currentSlide * 100) + "%)");
         $(".remember-dot").removeClass("active");
         $(".remember-dot[data-index='" + currentSlide + "']").addClass("active");
     }
@@ -277,7 +277,7 @@ function show_discover_page(){
     
     function goToSlide(idx) {
         currentSlide = idx;
-        $(".carousel-track").css("transform", "translateX(" + (currentSlide * 100) + "%)");
+        $(".carousel-track").css("transform", "translateX(-" + (currentSlide * 100) + "%)");
         $(".carousel-dot").removeClass("active");
         $(".carousel-dot[data-index='" + currentSlide + "']").addClass("active");
     }
@@ -305,6 +305,22 @@ function show_video_page(){
     r[++j] = "<div id='navigate-container'>";
     r[++j] = "<div class='video-page info-screen-fadein'>";
     r[++j] =    "<div class='video-title'>📺 جزء المطالعة</div>";
+
+    r[++j] =    "<div class='video-img-carousel'>";
+    r[++j] =        "<div class='video-img-viewport'>";
+    r[++j] =            "<div class='video-img-track'>";
+    r[++j] =                "<img class='video-img-slide' src='./assets/images/im1.jpeg' />";
+    r[++j] =                "<img class='video-img-slide' src='./assets/images/im2.jpeg' />";
+    r[++j] =            "</div>";
+    r[++j] =        "</div>";
+    r[++j] =        "<button class='vid-car-btn vid-car-prev' data-action='vid-prev'>&#10095;</button>";
+    r[++j] =        "<button class='vid-car-btn vid-car-next' data-action='vid-next'>&#10094;</button>";
+    r[++j] =        "<div class='vid-car-dots'>";
+    r[++j] =            "<span class='vid-car-dot active' data-index='0'></span>";
+    r[++j] =            "<span class='vid-car-dot' data-index='1'></span>";
+    r[++j] =        "</div>";
+    r[++j] =    "</div>";
+
     r[++j] =    "<div class='video-container'>";
     r[++j] =        "<iframe class='video-iframe' src='https://www.youtube.com/embed/ZZtn08FK_nU' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>";
     r[++j] =    "</div>";
@@ -314,6 +330,26 @@ function show_video_page(){
     
     var obj = $(r.join(""));
     $("#page-container").append(obj);
+    
+    var currentSlide = 0;
+    var totalSlides = 2;
+    
+    function goToSlide(idx) {
+        currentSlide = idx;
+        $(".video-img-track").css("transform", "translateX(-" + (currentSlide * 100) + "%)");
+        $(".vid-car-dot").removeClass("active");
+        $(".vid-car-dot[data-index='" + currentSlide + "']").addClass("active");
+    }
+    
+    $("[data-action='vid-next']").click(function(){
+        goToSlide((currentSlide + 1) % totalSlides);
+    });
+    $("[data-action='vid-prev']").click(function(){
+        goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+    });
+    $(".vid-car-dot").click(function(){
+        goToSlide(parseInt($(this).data("index")));
+    });
     
     $("[data-action='back']").click(function(){ show_main_menu(); });
 }
@@ -424,6 +460,9 @@ function init_home_page(){
     /* Next Button */
     r[++j] =    "<div class='next-button next-button-animation'><img class='tile-thumbnail' src='./assets/images/Next-Button.png'/></div>";
     
+    /* Back to Menu Button */
+    r[++j] =    "<div class='menu-back-btn' data-action='back-menu'><img class='tile-thumbnail' src='./assets/images/Previous-Button.png'/></div>";
+    
     /* Header Welcome */
     r[++j] =    "<div class='ribbon'><img class='tile-thumbnail' src='./assets/images/Ribbon-Top.png'/></div>";
    
@@ -436,6 +475,12 @@ function init_home_page(){
     var obj = $(r.join(""));
     
     $("#page-container").append(obj);
+    
+    $("[data-action='back-menu']").click(function(event){
+        $(this).off("click");
+        $("#audio-player")[0].pause();
+        show_main_menu();
+    });
     
     $(".next-button").click(function(event){
         
