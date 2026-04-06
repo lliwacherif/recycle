@@ -122,14 +122,103 @@ function show_remember_page(){
     var r = new Array(), j = -1;
     
     r[++j] = "<div id='navigate-container'>";
-    r[++j] = "<div class='sub-page-content info-screen-fadein'>";
-    r[++j] =    "<img class='sub-page-img' src='./assets/images/interface1.png'/>";
+    r[++j] = "<div class='remember-page info-screen-fadein'>";
+    r[++j] =    "<div class='remember-viewport'>";
+    r[++j] =        "<div class='remember-track'>";
+
+    r[++j] =            "<div class='remember-slide'>";
+    r[++j] =                "<img class='sub-page-img' src='./assets/images/interface1.png'/>";
+    r[++j] =            "</div>";
+
+    r[++j] =            "<div class='remember-slide'>";
+    r[++j] =                "<div class='remember-card'>";
+    r[++j] =                    "<div class='remember-title'>📖 التربية البيئية</div>";
+    r[++j] =                    "<div class='remember-text'>";
+    r[++j] =                        "التربية البيئية هي تربية تهدف إلى:<br/>";
+    r[++j] =                        "<ul>";
+    r[++j] =                            "<li>تنمية وعي التلميذ بالمحيط الذي يعيش فيه</li>";
+    r[++j] =                            "<li>فهم العلاقة بين الإنسان والبيئة</li>";
+    r[++j] =                            "<li>اكتساب سلوكات إيجابية للمحافظة على البيئة</li>";
+    r[++j] =                        "</ul>";
+
+    r[++j] =                        "<div class='remember-section'>🌍 مكوّنات البيئة</div>";
+    r[++j] =                        "البيئة تتكوّن من:<br/>";
+    r[++j] =                        "<ul>";
+    r[++j] =                            "<li>عناصر طبيعية: الماء، الهواء، التربة، النباتات، الحيوانات</li>";
+    r[++j] =                            "<li>عناصر بشرية: الإنسان، المنشآت، الطرقات</li>";
+    r[++j] =                        "</ul>";
+
+    r[++j] =                        "<div class='remember-section'>⚠️ مشاكل بيئية</div>";
+    r[++j] =                        "من أبرز المشاكل التي يتعرّف عليها التلميذ:<br/>";
+    r[++j] =                        "<ul>";
+    r[++j] =                            "<li>التلوث (هواء، ماء، تربة)</li>";
+    r[++j] =                            "<li>تراكم الفضلات</li>";
+    r[++j] =                            "<li>الاستغلال المفرط للموارد الطبيعية</li>";
+    r[++j] =                        "</ul>";
+
+    r[++j] =                        "<div class='remember-section'>♻️ سلوكات لحماية البيئة</div>";
+    r[++j] =                        "يتعلم التلميذ مجموعة من السلوكات الإيجابية مثل:<br/>";
+    r[++j] =                        "<ul>";
+    r[++j] =                            "<li>المحافظة على نظافة المحيط</li>";
+    r[++j] =                            "<li>ترشيد استهلاك الماء والكهرباء</li>";
+    r[++j] =                            "<li>فرز النفايات وإعادة التدوير</li>";
+    r[++j] =                            "<li>غرس الأشجار والعناية بالنباتات</li>";
+    r[++j] =                        "</ul>";
+
+    r[++j] =                        "<div class='remember-section'>👨‍🏫 دور التلميذ في حماية البيئة</div>";
+    r[++j] =                        "<ul>";
+    r[++j] =                            "<li>المشاركة في حملات النظافة</li>";
+    r[++j] =                            "<li>نشر الوعي بين الأصدقاء والعائلة</li>";
+    r[++j] =                            "<li>احترام المحيط المدرسي والشارع</li>";
+    r[++j] =                        "</ul>";
+
+    r[++j] =                        "<div class='remember-section'>🎯 هدف التربية البيئية</div>";
+    r[++j] =                        "بناء تلميذ:<br/>";
+    r[++j] =                        "<ul>";
+    r[++j] =                            "<li>واعٍ بمحيطه</li>";
+    r[++j] =                            "<li>مسؤول في سلوكاته</li>";
+    r[++j] =                            "<li>مساهم في حماية البيئة والتنمية المستدامة</li>";
+    r[++j] =                        "</ul>";
+    r[++j] =                    "</div>";
+    r[++j] =                "</div>";
+    r[++j] =            "</div>";
+
+    r[++j] =        "</div>";
+    r[++j] =    "</div>";
+
+    r[++j] =    "<button class='remember-btn remember-prev' data-action='rem-prev'>&#10095;</button>";
+    r[++j] =    "<button class='remember-btn remember-next' data-action='rem-next'>&#10094;</button>";
+    r[++j] =    "<div class='remember-dots'>";
+    r[++j] =        "<span class='remember-dot active' data-index='0'></span>";
+    r[++j] =        "<span class='remember-dot' data-index='1'></span>";
+    r[++j] =    "</div>";
+
     r[++j] = "</div>";
     r[++j] = "<div class='menu-back-btn' data-action='back'><img class='tile-thumbnail' src='./assets/images/Previous-Button.png'/></div>";
     r[++j] = "</div>";
     
     var obj = $(r.join(""));
     $("#page-container").append(obj);
+    
+    var currentSlide = 0;
+    var totalSlides = 2;
+    
+    function goToSlide(idx) {
+        currentSlide = idx;
+        $(".remember-track").css("transform", "translateX(" + (currentSlide * 100) + "%)");
+        $(".remember-dot").removeClass("active");
+        $(".remember-dot[data-index='" + currentSlide + "']").addClass("active");
+    }
+    
+    $("[data-action='rem-next']").click(function(){
+        goToSlide((currentSlide + 1) % totalSlides);
+    });
+    $("[data-action='rem-prev']").click(function(){
+        goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+    });
+    $(".remember-dot").click(function(){
+        goToSlide(parseInt($(this).data("index")));
+    });
     
     $("[data-action='back']").click(function(){ show_main_menu(); });
 }
@@ -157,6 +246,24 @@ function show_discover_page(){
     r[++j] =            "🏆 أكمل 3 جولات وحاول أن تحصل على أعلى نتيجة!<br/><br/>";
     r[++j] =            "هل أنت مستعد لإنقاذ الكوكب؟ هيا بنا! 🌍♻️";
     r[++j] =        "</div>";
+    r[++j] =        "<div class='discover-carousel'>";
+    r[++j] =            "<div class='carousel-viewport'>";
+    r[++j] =                "<div class='carousel-track'>";
+    r[++j] =                    "<img class='carousel-slide' src='./assets/images/p1.jpeg' />";
+    r[++j] =                    "<img class='carousel-slide' src='./assets/images/p2.jpeg' />";
+    r[++j] =                    "<img class='carousel-slide' src='./assets/images/p3.jpeg' />";
+    r[++j] =                    "<img class='carousel-slide' src='./assets/images/p4.jpeg' />";
+    r[++j] =                "</div>";
+    r[++j] =            "</div>";
+    r[++j] =            "<button class='carousel-btn carousel-prev' data-action='carousel-prev'>&#10095;</button>";
+    r[++j] =            "<button class='carousel-btn carousel-next' data-action='carousel-next'>&#10094;</button>";
+    r[++j] =            "<div class='carousel-dots'>";
+    r[++j] =                "<span class='carousel-dot active' data-index='0'></span>";
+    r[++j] =                "<span class='carousel-dot' data-index='1'></span>";
+    r[++j] =                "<span class='carousel-dot' data-index='2'></span>";
+    r[++j] =                "<span class='carousel-dot' data-index='3'></span>";
+    r[++j] =            "</div>";
+    r[++j] =        "</div>";
     r[++j] =    "</div>";
     r[++j] = "</div>";
     r[++j] = "<div class='menu-back-btn' data-action='back'><img class='tile-thumbnail' src='./assets/images/Previous-Button.png'/></div>";
@@ -164,6 +271,26 @@ function show_discover_page(){
     
     var obj = $(r.join(""));
     $("#page-container").append(obj);
+    
+    var currentSlide = 0;
+    var totalSlides = 4;
+    
+    function goToSlide(idx) {
+        currentSlide = idx;
+        $(".carousel-track").css("transform", "translateX(" + (currentSlide * 100) + "%)");
+        $(".carousel-dot").removeClass("active");
+        $(".carousel-dot[data-index='" + currentSlide + "']").addClass("active");
+    }
+    
+    $("[data-action='carousel-next']").click(function(){
+        goToSlide((currentSlide + 1) % totalSlides);
+    });
+    $("[data-action='carousel-prev']").click(function(){
+        goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+    });
+    $(".carousel-dot").click(function(){
+        goToSlide(parseInt($(this).data("index")));
+    });
     
     $("[data-action='back']").click(function(){ show_main_menu(); });
 }
