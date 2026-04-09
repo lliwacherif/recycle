@@ -131,6 +131,18 @@ function show_remember_page(){
     r[++j] =            "</div>";
 
     r[++j] =            "<div class='remember-slide'>";
+    r[++j] =                "<img class='sub-page-img' src='./assets/images/t1.jpeg'/>";
+    r[++j] =            "</div>";
+
+    r[++j] =            "<div class='remember-slide'>";
+    r[++j] =                "<img class='sub-page-img' src='./assets/images/t2.jpeg'/>";
+    r[++j] =            "</div>";
+
+    r[++j] =            "<div class='remember-slide'>";
+    r[++j] =                "<img class='sub-page-img' src='./assets/images/t3.jpeg'/>";
+    r[++j] =            "</div>";
+
+    r[++j] =            "<div class='remember-slide'>";
     r[++j] =                "<div class='remember-card'>";
     r[++j] =                    "<div class='remember-title'>📖 التربية البيئية</div>";
     r[++j] =                    "<div class='remember-text'>";
@@ -191,6 +203,9 @@ function show_remember_page(){
     r[++j] =    "<div class='remember-dots'>";
     r[++j] =        "<span class='remember-dot active' data-index='0'></span>";
     r[++j] =        "<span class='remember-dot' data-index='1'></span>";
+    r[++j] =        "<span class='remember-dot' data-index='2'></span>";
+    r[++j] =        "<span class='remember-dot' data-index='3'></span>";
+    r[++j] =        "<span class='remember-dot' data-index='4'></span>";
     r[++j] =    "</div>";
 
     r[++j] = "</div>";
@@ -201,7 +216,7 @@ function show_remember_page(){
     $("#page-container").append(obj);
     
     var currentSlide = 0;
-    var totalSlides = 2;
+    var totalSlides = 5;
     
     function goToSlide(idx) {
         currentSlide = idx;
